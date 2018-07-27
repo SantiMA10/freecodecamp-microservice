@@ -1,0 +1,28 @@
+{
+  "name": "freecodecamp-microservice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SantiMA10/freecodecamp-microservice.git"
+  },
+  "keywords": [],
+  "author": "Santi M.A. <santiagomartinagra@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SantiMA10/freecodecamp-microservice/issues"
+  },
+  "homepage": "https://github.com/SantiMA10/freecodecamp-microservice#readme",
+  "devDependencies": {
+    "@types/jest": "^23.3.1",
+    "jest": "^23.4.1",
+    "nodemon": "^1.18.3",
+    "ts-jest": "^23.0.1",
+    "ts-node": "^7.0.0",
+    "tslint": "^5.11.0",
+    "typescript": "^2.9.2"
+  }
+}
