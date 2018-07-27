@@ -1,8 +1,13 @@
-export const timestampHandler = (date: string): IResponse =>  {
-    const now = Date.now()
+export const timestampHandler = (dateString: string): IResponse =>  {
+    let date = new Date(Date.now())
+
+    if(dateString !== ''){
+        date = new Date(dateString)
+    }
+
     return { 
-        unix: now,
-        utc: (new Date(now)).toUTCString()
+        unix: date.getTime(),
+        utc: date.toUTCString()
     }
 }
 
