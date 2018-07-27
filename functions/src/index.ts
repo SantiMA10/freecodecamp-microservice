@@ -1,8 +1,13 @@
 import * as functions from 'firebase-functions';
+import * as express from 'express';
+import * as cors from 'cors'
+import { timestampHandler } from './handlers/timestamp';
 
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
-//
-// export const helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });
+const app = express()
+app.use(cors({optionsSuccessStatus: 200}))
+
+app.get('timestamp/:date_string', (req, res) => {
+    return res.send(timestampHandler(req.params.date_string))
+})
+
+export const api = functions.https.onRequest(app)
