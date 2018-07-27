@@ -1,5 +1,3 @@
-import { Request } from "../../node_modules/@types/express";
-
 export const whoamiHandler = ({ip, headers}: IRequest) => {
     return {
         ipaddress: ip,

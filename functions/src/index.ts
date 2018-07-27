@@ -12,7 +12,6 @@ app.get('/timestamp/:date_string', (req, res) => {
 })
 
 app.get('/whoami', (req, res) => {
-    console.log(req.headers)
     return res.send(whoamiHandler(req))
 })
 
