@@ -6,7 +6,7 @@ import { timestampHandler } from './handlers/timestamp';
 const app = express()
 app.use(cors({optionsSuccessStatus: 200}))
 
-app.get('timestamp/:date_string', (req, res) => {
+app.get('/timestamp/:date_string', (req, res) => {
     return res.send(timestampHandler(req.params.date_string))
 })
 
