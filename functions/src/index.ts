@@ -1,8 +1,8 @@
 import * as functions from 'firebase-functions';
 import * as express from 'express';
 import * as cors from 'cors'
-import { timestampHandler } from './handlers/timestamp';
-import { whoamiHandler } from './handlers/whoami';
+import { timestampHandler } from './handlers/timestamp/timestamp';
+import { whoamiHandler } from './handlers/whoami/whoami';
 
 const app = express()
 app.use(cors({optionsSuccessStatus: 200}))
