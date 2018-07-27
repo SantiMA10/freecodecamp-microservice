@@ -65,3 +65,4 @@ service-account.json
 
 # TypeScript
 dist
+lib
