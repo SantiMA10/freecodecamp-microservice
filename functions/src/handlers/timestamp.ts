@@ -1,8 +1,14 @@
 export const timestampHandler = (dateString: string): IResponse =>  {
     let date = new Date(Date.now())
 
-    if(dateString !== ''){
+    if (dateString !== ''){
         date = new Date(dateString)
+    }
+
+    if (date.toUTCString() === 'Invalid Date') {
+        return {
+            error: 'Invalid Date'
+        }
     }
 
     return { 
@@ -12,6 +18,7 @@ export const timestampHandler = (dateString: string): IResponse =>  {
 }
 
 interface IResponse {
-    unix: number
-    utc: string
+    unix?: number
+    utc?: string
+    error?: string
 }

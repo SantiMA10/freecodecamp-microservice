@@ -1,31 +1,38 @@
 import { timestampHandler } from "./timestamp";
 
 describe("timestamp handler", () => {
-  const now = Date.now();
+  const now = Date.now()
 
   beforeAll(() => {
-    Date.now = jest.fn(() => now);
+    Date.now = jest.fn(() => now)
   });
 
   it("should return 'new Date()' if the string if empty", () => {
-    const response = timestampHandler("");
+    const response = timestampHandler("")
 
-    expect(response).toHaveProperty("unix");
-    expect(response).toHaveProperty("utc");
+    expect(response).toHaveProperty("unix")
+    expect(response).toHaveProperty("utc")
 
-    expect(response.unix).toBe(now);
-    expect(response.utc).toBe((new Date(now)).toUTCString());
+    expect(response.unix).toBe(now)
+    expect(response.utc).toBe((new Date(now)).toUTCString())
   });
 
   it("should return a valid date, for example '2016-11-20', as unix time and utc", () => {
-    const response = timestampHandler("2016-11-20");
+    const response = timestampHandler("2016-11-20")
 
-    expect(response).toHaveProperty("unix");
-    expect(response).toHaveProperty("utc");
+    expect(response).toHaveProperty("unix")
+    expect(response).toHaveProperty("utc")
 
-    const date = new Date("2016-11-20");
+    const date = new Date("2016-11-20")
 
-    expect(response.unix).toBe(date.getTime());
-    expect(response.utc).toBe(date.toUTCString());
+    expect(response.unix).toBe(date.getTime())
+    expect(response.utc).toBe(date.toUTCString())
+  });
+
+  it("should return an error if the string date is invalid", () => {
+    const response = timestampHandler("pepe")
+
+    expect(response).toHaveProperty("error")
+    expect(response.error).toBe("Invalid Date")
   });
 });
