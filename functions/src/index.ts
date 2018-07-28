@@ -5,7 +5,7 @@ import * as cors from 'cors'
 import { timestampHandler } from './handlers/timestamp/timestamp';
 import { whoamiHandler } from './handlers/whoami/whoami';
 import { CreateShortUrlHandler } from './handlers/urlShortener/createShortUrl';
-import { redirectToShortUrlHandler } from './handlers/urlShortener/redirectToShortUrl';
+import { RedirectToShortUrlHandler } from './handlers/urlShortener/redirectToShortUrl';
 import { FirebaseDb } from './services/firebase.db';
 
 const app = express()
@@ -19,8 +19,10 @@ app.get('/whoami', (req, res) => {
     return res.send(whoamiHandler(req))
 })
 
+const db = new FirebaseDb('shortUrl');
+
 app.post('/shorturl/new', (req, res) => {
-    const handler = new CreateShortUrlHandler(new FirebaseDb('shortUrl'))
+    const handler = new CreateShortUrlHandler(db)
     handler.invoke({url: req.body.url})
         .then((response) => {
             res.send(response)
@@ -28,8 +30,11 @@ app.post('/shorturl/new', (req, res) => {
 })
 
 app.get('/shorturl/:id', (req, res) => {
-    const url = redirectToShortUrlHandler({id: req.params.id})
-    return res.redirect(url.original_url)
+    const handler = new RedirectToShortUrlHandler(db)
+    handler.invoke({id: req.params.id})
+        .then((response) => {
+            res.redirect(response.original_url)
+        })
 })
 
 export const api = functions.https.onRequest(app)

@@ -1,12 +1,12 @@
-export const redirectToShortUrlHandler = ({id}): IResponse => {
-    return {
-        original_url: 'http://www.google.com',
-        short_url: id
-    }
-}
+import { IDb } from '../../services/db.interface';
+import { IResponse } from './response.interface';
 
-interface IResponse {
-    original_url?: string
-    short_url?: number
-    error?: string
+export class RedirectToShortUrlHandler {
+    constructor(
+        private db: IDb
+    ) { }
+
+    public invoke ({id}): Promise<IResponse> {
+        return this.db.readValue(id)
+    }
 }
