@@ -26,6 +26,13 @@ export class FirebaseDb implements IDb {
             .push(value)
     }   
     
+    setValue(key: string, value: object) {
+        return admin
+            .database()
+            .ref(`${this.rootName}/${key}`)
+            .push(value)
+    }   
+    
     readValue(key: string) {
         throw admin
             .database()
