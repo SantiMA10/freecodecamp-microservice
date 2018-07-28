@@ -1,10 +1,12 @@
 import * as functions from 'firebase-functions';
 import * as express from 'express';
 import * as cors from 'cors'
+
 import { timestampHandler } from './handlers/timestamp/timestamp';
 import { whoamiHandler } from './handlers/whoami/whoami';
-import { createShortUrlHandler } from './handlers/urlShortener/createShortUrl';
+import { CreateShortUrlHandler } from './handlers/urlShortener/createShortUrl';
 import { redirectToShortUrlHandler } from './handlers/urlShortener/redirectToShortUrl';
+import { FirebaseDb } from './services/firebase.db';
 
 const app = express()
 app.use(cors({optionsSuccessStatus: 200}))
@@ -18,7 +20,11 @@ app.get('/whoami', (req, res) => {
 })
 
 app.post('/shorturl/new', (req, res) => {
-    return res.send(createShortUrlHandler({url: req.body.url}))
+    const handler = new CreateShortUrlHandler(new FirebaseDb('shortUrl'))
+    handler.invoke({url: req.body.url})
+        .then((response) => {
+            res.send(response)
+        })
 })
 
 app.get('/shorturl/:id', (req, res) => {
