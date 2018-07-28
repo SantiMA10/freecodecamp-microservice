@@ -2,6 +2,7 @@ import { v4 as uuid } from "uuid"
 
 import { isWebUri } from "valid-url"
 import { IDb } from '../../services/db.interface';
+import { IResponse } from "./response.interface";
 
 export class CreateShortUrlHandler {
     constructor(
@@ -20,7 +21,8 @@ export class CreateShortUrlHandler {
             short_url: uuid()
         };
 
-        return this.db.setValue(short.short_url, short)
+        return this.db
+            .setValue(short.short_url, short)
             .then(() => {
                 return short
             })
@@ -28,8 +30,3 @@ export class CreateShortUrlHandler {
     }
 }
 
-interface IResponse {
-    original_url?: string
-    short_url?: number
-    error?: string
-}
