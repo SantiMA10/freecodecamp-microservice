@@ -8,12 +8,9 @@ describe('create short url', () => {
 
     beforeAll(() => {
         const mock = jest.fn<IDb>(() => ({
-            setValue:  (key, url) => {
-                return Promise.resolve({
-                    original_url: url,
-                    short_url: key
-                })
-            } 
+            setValue:  (key: string, value: object) => {
+                return Promise.resolve(value)
+            }
         }))
 
         db = new mock()
