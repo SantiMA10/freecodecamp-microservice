@@ -4,6 +4,7 @@ import * as cors from 'cors'
 import { timestampHandler } from './handlers/timestamp/timestamp';
 import { whoamiHandler } from './handlers/whoami/whoami';
 import { createShortUrlHandler } from './handlers/urlShortener/createShortUrl';
+import { redirectToShortUrlHandler } from './handlers/urlShortener/redirectToShortUrl';
 
 const app = express()
 app.use(cors({optionsSuccessStatus: 200}))
@@ -18,6 +19,11 @@ app.get('/whoami', (req, res) => {
 
 app.post('/shorturl/new', (req, res) => {
     return res.send(createShortUrlHandler({url: req.body.url}))
+})
+
+app.get('/shorturl/:id', (req, res) => {
+    const url = redirectToShortUrlHandler({id: req.params.id})
+    return res.redirect(url.original_url)
 })
 
 export const api = functions.https.onRequest(app)
