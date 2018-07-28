@@ -5,7 +5,6 @@ import { IDb } from "./db.interface";
 
 export class FirebaseDb implements IDb {
 
-
     constructor (
         private rootName: string
     ) {
@@ -34,7 +33,7 @@ export class FirebaseDb implements IDb {
         return admin
             .database()
             .ref(`${this.rootName}/${key}`)
-            .push(value)
+            .set(value)
     }   
     
     readValue(key: string) {
