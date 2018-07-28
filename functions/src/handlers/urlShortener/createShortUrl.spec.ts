@@ -8,10 +8,10 @@ describe('create short url', () => {
 
     beforeAll(() => {
         const mock = jest.fn<IDb>(() => ({
-            addValue:  ({url}: {url: string}) => {
+            setValue:  (key, url) => {
                 return Promise.resolve({
                     original_url: url,
-                    short_url: 1
+                    short_url: key
                 })
             } 
         }))
@@ -19,7 +19,7 @@ describe('create short url', () => {
         db = new mock()
     })
 
-    it ('should return create short url', () => {
+    it ('should return create short url', (done) => {
         const handler = new CreateShortUrlHandler(db)
         handler
             .invoke({url: 'http://www.google.com'})
@@ -27,11 +27,12 @@ describe('create short url', () => {
                 expect(response).toHaveProperty('original_url')
                 expect(response).toHaveProperty('short_url')
                 expect(response.original_url).toBe('http://www.google.com')
+                done()
             })
 
     })
 
-    it ('should return an error if the url is not well format', () => {
+    it ('should return an error if the url is not well format', (done) => {
 
         const handler = new CreateShortUrlHandler(db)
         handler
@@ -39,6 +40,7 @@ describe('create short url', () => {
             .then((response) => {
                 expect(response).toHaveProperty('error')
                 expect(response.error).toBe('invalid URL')
+                done()
             })        
     })
 })
