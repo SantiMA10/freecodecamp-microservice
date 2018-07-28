@@ -37,12 +37,13 @@ export class FirebaseDb implements IDb {
     }   
     
     readValue(key: string) {
-        throw admin
+        return new Promise((resolve) => {
+            admin
             .database()
             .ref(`${this.rootName}/${key}`)
-            .once('value')
-            .then((snapshot) => {
-                return snapshot.val()
+            .once('value', (snapshot) => {
+                return resolve(snapshot.val())
             })
+        })
     }
 }
