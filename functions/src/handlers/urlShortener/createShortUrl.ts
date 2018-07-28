@@ -20,7 +20,7 @@ export class CreateShortUrlHandler {
             short_url: uuid()
         };
 
-        return this.db.addValue(short)
+        return this.db.setValue(short.short_url, short)
             .then(() => {
                 return short
             })
