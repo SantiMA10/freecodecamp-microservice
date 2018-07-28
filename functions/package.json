@@ -18,10 +18,12 @@
     "express": "^4.16.3",
     "firebase-admin": "~5.13.0",
     "firebase-functions": "^2.0.0",
+    "uuid": "^3.3.2",
     "valid-url": "^1.0.9"
   },
   "devDependencies": {
     "@types/jest": "^23.3.1",
+    "@types/uuid": "^3.4.3",
     "@types/valid-url": "^1.0.2",
     "jest": "^23.4.1",
     "ts-jest": "^23.0.1",
